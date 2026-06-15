@@ -8,9 +8,9 @@ import sys
 import os
 
 # Add project root to path
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def test_imports():
+def run_import_checks():
     """Test all critical imports systematically."""
     print("=" * 80)
     print("TESTING CRITICAL IMPORTS")
@@ -157,12 +157,18 @@ def test_imports():
     return test_results
 
 
+def test_imports():
+    results = run_import_checks()
+    failures = [(name, status) for name, status in results if status != "PASS"]
+    assert not failures, failures
+
+
 if __name__ == "__main__":
     print("\n" + "=" * 80)
-    print("FSS HERO CHATBOT - IMPORT VERIFICATION TEST")
+    print("ECS CHATBOT - IMPORT VERIFICATION TEST")
     print("=" * 80)
 
-    results = test_imports()
+    results = run_import_checks()
 
     print("\n" + "=" * 80)
     print("TEST SUMMARY")

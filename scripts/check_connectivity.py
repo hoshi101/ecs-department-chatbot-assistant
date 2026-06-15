@@ -9,9 +9,9 @@ import os
 import time
 
 # Add project root to path
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def test_connectivity():
+def run_connectivity_checks():
     """Test connectivity to all external services."""
     print("=" * 80)
     print("TESTING EXTERNAL SERVICE CONNECTIVITY")
@@ -53,7 +53,7 @@ def test_connectivity():
     try:
         from src.backend.services.vectorstore import embeddings
 
-        test_text = "This is a test query for the FSS Hero chatbot system"
+        test_text = "This is a test query for the ECS chatbot system"
         start = time.time()
         embedding = embeddings.embed_query(test_text)
         latency = (time.time() - start) * 1000
@@ -123,7 +123,7 @@ def test_connectivity():
         test_results.append(("Tavily Web Search", "FAIL", str(e)))
 
     # Test 5: Query Enhancement
-    print("\n[5/5] Testing HERO Bot query enhancement...")
+    print("\n[5/5] Testing query enhancement...")
     try:
         from src.backend.core.agent import enhance_query_hero_bot_style
 
@@ -143,12 +143,18 @@ def test_connectivity():
     return test_results
 
 
+def test_connectivity():
+    results = run_connectivity_checks()
+    failures = [(name, status, details) for name, status, details in results if status != "PASS"]
+    assert not failures, failures
+
+
 if __name__ == "__main__":
     print("\n" + "=" * 80)
-    print("FSS HERO CHATBOT - CONNECTIVITY VERIFICATION TEST")
+    print("ECS CHATBOT - CONNECTIVITY VERIFICATION TEST")
     print("=" * 80)
 
-    results = test_connectivity()
+    results = run_connectivity_checks()
 
     print("\n" + "=" * 80)
     print("CONNECTIVITY TEST SUMMARY")
