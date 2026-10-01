@@ -349,4 +349,4 @@ Comprehensive documentation is available in the `docs/` directory:
 
 ## License
 
-This project maintains the same license as the original implementation.
+MIT License. See [LICENSE](LICENSE).
