@@ -4,6 +4,12 @@ A RAG-based department support chatbot designed for the ECS department website, 
 
 This repository is a snapshot of a senior project. The latest changes are a cleanup only (license, config naming, data removal, renaming) with no change in functionality.
 
+## Architecture
+
+![Architecture diagram](docs/images/architecture.png)
+
+The Streamlit UI calls a FastAPI gateway, which initializes a LangGraph agent. The agent routes each query to the Gemini or OpenAI model, runs query enhancement and RAG over the Qdrant knowledge base, uses a RAG judge to decide whether the retrieved context is sufficient, and falls back to Tavily web search when it is not.
+
 ## Project Structure
 
 ```
@@ -59,6 +65,7 @@ ecs-department-rag-assistant/
 │       └── test_api_endpoints.py
 │
 ├── docs/                         # Documentation
+│   ├── images/                  # README images
 │   ├── guides/                  # User guides
 │   │   ├── API_TESTING_GUIDE.md
 │   │   ├── POSTMAN_TESTING_GUIDE.md
