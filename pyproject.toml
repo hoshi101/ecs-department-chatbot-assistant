@@ -1,5 +1,5 @@
 [project]
-name = "ecs-chatbot"
+name = "ecs-department-rag-assistant"
 version = "0.1.0"
 description = "Department support chatbot for Electrical Engineering and Electronic and Computer Systems Engineering."
 readme = "README.md"

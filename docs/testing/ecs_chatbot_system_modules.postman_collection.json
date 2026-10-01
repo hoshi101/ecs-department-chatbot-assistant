@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "d4ceba6e-9e3d-4ed4-9b1d-b9d6e6a8f001",
-    "name": "ECS Chatbot API - System Modules",
+    "name": "ECS Department RAG Assistant API - System Modules",
     "description": "System-level Postman collection for the ECS Chatbot FastAPI backend. Requests are organized by live backend modules and cover health, model configuration, chat routing/agent behavior, retrieval diagnostics, embedding diagnostics, and representative validation failures.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
