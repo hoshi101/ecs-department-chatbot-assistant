@@ -1,11 +1,13 @@
-# EE Support Chatbot
+# AI Assistant Chatbot for the ECS Department Website
 
-An AI-powered department support chatbot for Electrical Engineering / Electronic and Computer Systems Engineering, built with LangGraph, Qdrant, and switchable Gemini/OpenAI chat models.
+A RAG-based department support chatbot designed for the ECS department website, built with LangGraph, Qdrant, and switchable Gemini/OpenAI chat models.
+
+This repository is a snapshot of a senior project. The latest changes are a cleanup only (license, config naming, data removal, renaming) with no change in functionality.
 
 ## Project Structure
 
 ```
-ecs-chatbot/
+ecs-department-rag-assistant/
 ├── .env                          # Environment variables (gitignored)
 ├── .env.example                  # Environment template
 ├── Dockerfile                    # Container image for backend/frontend
@@ -41,7 +43,10 @@ ecs-chatbot/
 │   ├── run_frontend.py          # Frontend server launcher
 │   ├── process_documents.py     # Document processing script
 │   ├── scrape_department_sources.py
-│   └── preflight_check.py
+│   ├── preflight_check.py
+│   ├── evaluate_routing.py
+│   ├── verify_imports.py
+│   └── check_connectivity.py
 │
 ├── tests/                        # Testing infrastructure
 │   ├── conftest.py              # Pytest configuration
@@ -50,14 +55,14 @@ ecs-chatbot/
 │   │   ├── test_llm_config.py
 │   │   ├── test_gemini_structured.py
 │   │   └── test_query_precheck.py
-│   ├── integration/             # Integration tests
-│   │   └── test_api_endpoints.py
-│   └── migration/               # Migration tests
+│   └── integration/             # Integration tests
+│       └── test_api_endpoints.py
 │
 ├── docs/                         # Documentation
 │   ├── guides/                  # User guides
 │   │   ├── API_TESTING_GUIDE.md
-│   │   └── POSTMAN_TESTING_GUIDE.md
+│   │   ├── POSTMAN_TESTING_GUIDE.md
+│   │   └── WEB_SCRAPING_GUIDE.md
 │   ├── implementation/
 │   ├── operations/
 │   └── testing/
@@ -65,6 +70,7 @@ ecs-chatbot/
 ├── data/                         # Knowledge-base inputs (not included, see Data)
 │   └── .gitkeep
 │
+├── LICENSE                       # MIT License
 └── README.md                     # This file
 ```
 
@@ -73,8 +79,8 @@ ecs-chatbot/
 ### 1. Environment Setup
 
 ```bash
-# Clone and navigate to the project
-cd ecs-chatbot
+# Navigate to the project root
+cd ecs-department-rag-assistant
 
 # Install dependencies
 pip install -r requirements.txt
@@ -234,14 +240,6 @@ This writes cleaned Markdown/JSON into `data/web/clean/`. Raw scrape output and
 downloaded source files are ignored for public releases. See
 `docs/guides/WEB_SCRAPING_GUIDE.md`.
 
-### Project Structure Benefits
-
-1. **Clear Separation of Concerns**: API, business logic, services, and utilities are properly separated
-2. **Scalable Organization**: Structure can grow with the project without becoming unwieldy
-3. **Easy Navigation**: Developers can quickly find and modify specific functionality
-4. **Testing Support**: Clear testing hierarchy supports comprehensive test coverage
-5. **Maintainability**: Logical organization makes code maintenance easier
-
 ### Adding New Features
 
 1. **Backend Features**: Add to appropriate directories in `src/backend/`
@@ -338,6 +336,13 @@ FASTAPI_BASE_URL=http://localhost:8001
 # Optional: Document Processing
 DOC_SOURCE_DIR=data
 
+# Optional: Embeddings, Retrieval, and Rate Limiting
+EMBED_MODEL=BAAI/bge-m3
+DEFAULT_SIMILARITY_THRESHOLD=0.7
+RATE_LIMIT_ENABLED=true
+RATE_LIMIT_PER_MINUTE=10
+RATE_LIMIT_STRATEGY=fixed-window
+
 # Optional: Assistant Configuration
 DOMAIN_NAME=Department of Electrical Engineering, Silpakorn University
 BOT_NAME=น้องไฟฟ้า (ECS AI Assistant)
@@ -347,6 +352,8 @@ LLM_TEMPERATURE=0.2
 ENABLE_QUERY_ENHANCEMENT=true
 ```
 
+See `.env.example` for the full template.
+
 ## Documentation
 
 Comprehensive documentation is available in the `docs/` directory:
@@ -354,15 +361,6 @@ Comprehensive documentation is available in the `docs/` directory:
 - **User Guides**: `docs/guides/` - API testing and Postman guides
 - **Operations**: `docs/operations/` - Debugging and release-readiness notes
 - **Testing**: `docs/testing/` - Routing guides and question sets
-
-## Contributing
-
-1. Follow the established directory structure
-2. Add tests for new functionality in appropriate test directories
-3. Update documentation as needed
-4. Ensure all imports use the new structure paths
-5. Keep environment variables in `.env` file at root
-6. Run tests before submitting changes
 
 ## License
 
