@@ -62,10 +62,8 @@ ecs-chatbot/
 │   ├── operations/
 │   └── testing/
 │
-├── data/                         # Document storage
-│   ├── web/                     # Scraped official web content
-│   ├── มคอ.2.pdf
-│   └── รายละเอียดของหลักสูตร_2565.pdf
+├── data/                         # Knowledge-base inputs (not included, see Data)
+│   └── .gitkeep
 │
 └── README.md                     # This file
 ```
@@ -179,6 +177,25 @@ docker compose run --rm backend python -m pytest
 # Process documents from the mounted ./data directory
 docker compose run --rm backend python scripts/process_documents.py
 ```
+
+## Data
+
+This repository does not include any real knowledge-base data. Scraped web
+content and course documents are git-ignored (`data/web/`, `data/*.pdf`), so you
+need to prepare your own.
+
+1. **Supported file types**: PDF, CSV, JSON, TXT, and MD (`DOC_SUPPORTED_FORMATS`).
+2. **Source folder**: put your files in `data/`, or point `DOC_SOURCE_DIR` in `.env` at another folder.
+3. **Build the knowledge base**:
+   ```bash
+   # Optional: scrape official department/faculty pages into data/web/
+   .venv/bin/python scripts/scrape_department_sources.py
+
+   # Process everything under DOC_SOURCE_DIR into the Qdrant collection
+   .venv/bin/python scripts/process_documents.py
+   ```
+4. **Course documents** (curriculum specification and program details) are not
+   bundled. Download them yourself: `<TODO: ลิงก์แหล่งดาวน์โหลดเอกสาร>`.
 
 ## Key Features
 
