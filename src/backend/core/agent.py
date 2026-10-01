@@ -19,7 +19,7 @@ from src.backend.core.config import (
     DOMAIN_NAME,
     ENABLE_QUERY_ENHANCEMENT,
     FACULTY_CONTACT_TEXT,
-    FINANCIAL_TEMPERATURE,
+    LLM_TEMPERATURE,
     GOOGLE_API_KEY,
     OPENAI_API_KEY,
     PROVIDER_MODEL_SUGGESTIONS,
@@ -1356,7 +1356,7 @@ def answer_node(state: AgentState) -> AgentState:
     answer_llm = build_chat_model(
         runtime_settings["provider"],
         runtime_settings["model"],
-        temperature=FINANCIAL_TEMPERATURE,
+        temperature=LLM_TEMPERATURE,
     )
     answer = answer_llm.invoke([HumanMessage(content=prompt)]).content
     return {

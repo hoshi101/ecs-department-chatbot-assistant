@@ -326,7 +326,7 @@ DOMAIN_NAME=Department of Electrical Engineering, Silpakorn University
 BOT_NAME=น้องไฟฟ้า (ECS AI Assistant)
 BOT_NAME_EN=N' Faifa
 SEARCH_DOMAINS=ee-eng.su.ac.th,eng2.su.ac.th
-FINANCIAL_TEMPERATURE=0.2
+LLM_TEMPERATURE=0.2
 ENABLE_QUERY_ENHANCEMENT=true
 ```
 
