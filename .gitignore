@@ -43,8 +43,8 @@ docs/testing/BRUNO_ROUTING_GUIDE.md
 CLAUDE.md
 .kiro*
 archive/
-data/web/downloads/
-data/web/raw/
+data/web/
+data/*.pdf
 docs/reports/*.pdf
 noted.txt
 docs/BILINGUAL_PRESENTATION_SCRIPT.md
